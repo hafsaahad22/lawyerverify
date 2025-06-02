@@ -2,10 +2,17 @@
 
 ## Current Setup
 - **Data Storage**: In-memory storage with 3 demo lawyers
+- **Public Interface**: `/` - User verification form (no admin access)
+- **Admin Interface**: `/admin` - Separate admin dashboard (secure)
 - **Demo Lawyers in Database**:
   - CNIC: `12345-1234567-1`, Letter ID: `LTR-12345`, Name: "Advocate Ayesha Siddiqi"
   - CNIC: `98765-7654321-9`, Letter ID: `LTR-54321`, Name: "Barrister Khalid Mehmood"  
   - CNIC: `11111-1111111-1`, Letter ID: `LTR-11111`, Name: "Advocate Sarah Khan"
+
+## Security Improvements
+- ✅ Removed admin panel from public interface
+- ✅ Created separate admin dashboard at `/admin`
+- ✅ Admin interface can be embedded in Wix admin pages only
 
 ## Integration Options for Wix
 
