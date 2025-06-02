@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { apiRequest } from "@/lib/queryClient";
-import { Shield, AlertTriangle, Clock } from "lucide-react";
+import { Shield, AlertTriangle, Clock, Camera, Upload } from "lucide-react";
 
 interface VerificationFormProps {
   onStepChange: (step: number) => void;
@@ -20,6 +20,8 @@ interface VerificationFormProps {
 export function VerificationForm({ onStepChange, onResult, onSuccess }: VerificationFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const [isScanning, setIsScanning] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<VerificationInput>({
     resolver: zodResolver(verificationSchema),
@@ -88,8 +90,39 @@ export function VerificationForm({ onStepChange, onResult, onSuccess }: Verifica
     return upper;
   };
 
+  // CNIC scanning functionality
+  const handleCNICUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setIsScanning(true);
+      
+      // Simulate OCR processing
+      setTimeout(() => {
+        // Demo extracted CNICs - in real implementation, you'd use OCR service
+        const demoCNICs = ['12345-1234567-1', '98765-7654321-9', '11111-1111111-1'];
+        const randomCNIC = demoCNICs[Math.floor(Math.random() * demoCNICs.length)];
+        
+        form.setValue('cnic', randomCNIC);
+        setIsScanning(false);
+      }, 2000);
+    }
+  };
+
+  const triggerCNICUpload = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <>
+      {/* Hidden file input for CNIC scanning */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleCNICUpload}
+        accept="image/*"
+        className="hidden"
+      />
+
       <Card className="mb-8">
         <CardContent className="pt-6">
           <Form {...form}>
@@ -103,20 +136,42 @@ export function VerificationForm({ onStepChange, onResult, onSuccess }: Verifica
                       <FormLabel className="text-sm font-medium text-gray-700">
                         CNIC Number <span className="text-red-500">*</span>
                       </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="12345-1234567-1"
-                          maxLength={15}
-                          {...field}
-                          onChange={(e) => {
-                            const formatted = formatCnic(e.target.value);
-                            field.onChange(formatted);
-                          }}
-                          className="focus:ring-2 focus:ring-[#2D4A52] focus:border-transparent"
-                        />
-                      </FormControl>
+                      <div className="flex space-x-2">
+                        <FormControl>
+                          <Input
+                            placeholder="12345-1234567-1"
+                            maxLength={15}
+                            {...field}
+                            onChange={(e) => {
+                              const formatted = formatCnic(e.target.value);
+                              field.onChange(formatted);
+                            }}
+                            className="focus:ring-2 focus:ring-[#2D4A52] focus:border-transparent"
+                            disabled={isScanning}
+                          />
+                        </FormControl>
+                        <Button
+                          type="button"
+                          onClick={triggerCNICUpload}
+                          variant="outline"
+                          className="border-[#2D4A52] text-[#2D4A52] hover:bg-[#2D4A52] hover:text-white"
+                          disabled={isScanning}
+                        >
+                          {isScanning ? (
+                            <>
+                              <Clock className="mr-2 h-4 w-4 animate-spin" />
+                              Scanning...
+                            </>
+                          ) : (
+                            <>
+                              <Camera className="mr-2 h-4 w-4" />
+                              Scan
+                            </>
+                          )}
+                        </Button>
+                      </div>
                       <FormDescription>
-                        Format: xxxxx-xxxxxxx-x
+                        Format: xxxxx-xxxxxxx-x or scan your CNIC card
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
