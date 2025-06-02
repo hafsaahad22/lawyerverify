@@ -137,7 +137,113 @@ export default function LawyerVerification() {
               </CardContent>
             </Card>
 
-            {/* Remove admin access from public interface */}
+            {/* Success Stories Carousel */}
+            <Card className="bg-gradient-to-br from-teal-50 to-blue-50 border-teal-200">
+              <CardContent className="pt-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
+                  Successfully Verified Lawyers
+                </h3>
+                <div className="relative overflow-hidden">
+                  <div className="flex animate-slide space-x-4">
+                    {/* First set of lawyers */}
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">AS</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Advocate Ayesha Siddiqi</p>
+                          <p className="text-sm text-gray-600">Family Law Specialist</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">KM</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Barrister Khalid Mehmood</p>
+                          <p className="text-sm text-gray-600">Corporate Law Expert</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">SK</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Advocate Sarah Khan</p>
+                          <p className="text-sm text-gray-600">Criminal Defense</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">AR</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Advocate Ali Rahman</p>
+                          <p className="text-sm text-gray-600">Property Law</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">MH</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Ms. Maria Hassan</p>
+                          <p className="text-sm text-gray-600">Human Rights Law</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Duplicate set for continuous scroll */}
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">AS</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Advocate Ayesha Siddiqi</p>
+                          <p className="text-sm text-gray-600">Family Law Specialist</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex-shrink-0 bg-white rounded-lg p-4 shadow-sm border border-teal-100 w-64">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-lg">KM</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Barrister Khalid Mehmood</p>
+                          <p className="text-sm text-gray-600">Corporate Law Expert</p>
+                          <p className="text-xs text-teal-600">Verified ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center mt-4">
+                  <p className="text-sm text-gray-600">Join hundreds of verified legal professionals</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
