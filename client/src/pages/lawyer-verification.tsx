@@ -137,20 +137,27 @@ export default function LawyerVerification() {
               </CardContent>
             </Card>
 
-            {/* Admin Access */}
-            <Card className="bg-gray-100">
+            {/* Admin Access - Hidden by default */}
+            <Card className="bg-gray-50 border-dashed border-2 border-gray-200">
               <CardContent className="pt-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Admin Access</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Manage manual verifications and review pending applications.
-                </p>
-                <Button 
-                  onClick={() => setShowAdminPanel(true)}
-                  className="w-full bg-gray-700 hover:bg-gray-800 text-white"
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  Admin Panel
-                </Button>
+                <details className="group">
+                  <summary className="text-sm text-gray-500 cursor-pointer hover:text-gray-700 mb-2">
+                    Administrator Access
+                  </summary>
+                  <div className="mt-3">
+                    <p className="text-xs text-gray-500 mb-3">
+                      For authorized personnel only
+                    </p>
+                    <Button 
+                      onClick={() => setShowAdminPanel(true)}
+                      size="sm"
+                      className="w-full bg-gray-600 hover:bg-gray-700 text-white text-xs"
+                    >
+                      <Settings className="mr-2 h-3 w-3" />
+                      Admin Panel
+                    </Button>
+                  </div>
+                </details>
               </CardContent>
             </Card>
           </div>

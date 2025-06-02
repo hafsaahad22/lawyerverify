@@ -9,10 +9,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Verify lawyer credentials
   app.post("/api/verify-lawyer", async (req, res) => {
     try {
-      const { cnic, letterId } = verificationSchema.parse(req.body);
+      // First check individual field formats before full validation
+      const { cnic, letterId } = req.body;
+      
+      // Check CNIC format
+      const cnicPattern = /^[0-9]{5}-[0-9]{7}-[0-9]{1}$/;
+      const letterPattern = /^LTR-[0-9]{5}$/;
+      
+      if (cnic && !cnicPattern.test(cnic)) {
+        return res.status(400).json({
+          error: "CNIC format is incorrect. Please use format: 12345-1234567-1",
+          step: 1
+        });
+      }
+      
+      if (letterId && !letterPattern.test(letterId)) {
+        return res.status(400).json({
+          error: "Letter ID format is incorrect. Please use format: LTR-12345",
+          step: 1
+        });
+      }
+      
+      // Now validate with full schema
+      const validatedData = verificationSchema.parse(req.body);
       
       // Check if lawyer exists with both credentials
-      const lawyer = await storage.getLawyerByCnicAndLetterId(cnic, letterId);
+      const lawyer = await storage.getLawyerByCnicAndLetterId(validatedData.cnic, validatedData.letterId);
       
       if (lawyer) {
         return res.json({ 
@@ -23,13 +45,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Check for partial matches to provide specific feedback
-      const cnicMatch = await storage.getLawyerByCnic(cnic);
-      const letterMatch = await storage.getLawyerByLetterId(letterId);
+      const cnicMatch = await storage.getLawyerByCnic(validatedData.cnic);
+      const letterMatch = await storage.getLawyerByLetterId(validatedData.letterId);
       
       if (cnicMatch && !letterMatch) {
         return res.json({ 
           verified: false, 
-          error: "CNIC is correct, but Letter ID is incorrect. Please verify your Letter ID.",
+          error: "CNIC is correct, but Letter ID is incorrect. Please verify your Letter ID and try again.",
           step: 1
         });
       }
@@ -37,18 +59,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (letterMatch && !cnicMatch) {
         return res.json({ 
           verified: false, 
-          error: "Letter ID is correct, but CNIC is incorrect. Please verify your CNIC.",
+          error: "Letter ID is correct, but CNIC is incorrect. Please verify your CNIC and try again.",
           step: 1
         });
       }
       
       // No match found - create verification request for manual review
-      await storage.createVerificationRequest({ cnic, letterId });
+      await storage.createVerificationRequest({ cnic: validatedData.cnic, letterId: validatedData.letterId });
       
       return res.json({ 
         verified: false, 
         pending: true,
-        message: "Your details have been submitted for manual verification. You will be notified once the process is complete.",
+        message: "Your credentials are not in our database. Your request has been submitted for manual verification by our admin team.",
         step: 4
       });
       
