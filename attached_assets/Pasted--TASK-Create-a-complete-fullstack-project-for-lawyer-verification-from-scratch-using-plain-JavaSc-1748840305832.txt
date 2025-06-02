@@ -1,0 +1,81 @@
+🔧 TASK: Create a complete fullstack project for lawyer verification from scratch using plain JavaScript + Node.js, styled like the LegalConnect website.
+
+📦 PROJECT STRUCTURE:
+/
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+├── api/
+│   └── verify-lawyer.js
+├── data/
+│   └── lawyers.json
+├── vercel.json
+├── package.json
+├── README.md
+
+🖥 FRONTEND (index.html + style.css + script.js)
+- Page must look like LegalConnect (same font, white/teal color scheme)
+- Font: Inter or DM Sans
+- Colors: 
+  - Deep Teal (#2D4A52) for sidebar/header
+  - White for main content
+- Top nav bar: logo on left, buttons on right (Home | Log In | Sign Up)
+- Form with two inputs:
+  - CNIC (xxxxx-xxxxxxx-x)
+  - Letter ID (LTR-xxxxx)
+- “Verify” button
+- Success or error message box
+- 5-step visual guide below the form:
+  1. Enter CNIC & Letter ID
+  2. Click Verify
+  3. System checks against database
+  4. Show result
+  5. Create account unlocked on success
+- Right sidebar: chatbot-style FAQ box with preset questions:
+  - “What is CNIC format?”
+  - “Why verify?”
+  - “Is my data safe?”
+  - “What happens after verification?”
+- Clicking any question reveals the answer below in chat bubble style
+
+🧠 BACKEND (api/verify-lawyer.js)
+- Accepts POST request: { cnic, letterId }
+- Reads from data/lawyers.json
+- If match found: return { verified: true, fullName }
+- If no match: return { verified: false }
+
+📁 lawyers.json
+Store mock lawyers like:
+[
+  {
+    "cnic": "12345-1234567-1",
+    "letterId": "LTR-12345",
+    "fullName": "Advocate Ayesha Siddiqi"
+  },
+  {
+    "cnic": "98765-7654321-9",
+    "letterId": "LTR-54321",
+    "fullName": "Barrister Khalid Mehmood"
+  }
+]
+
+📦 package.json:
+Use basic express server with no frameworks:
+- express
+- body-parser (if needed)
+
+⚙️ vercel.json:
+{
+  "rewrites": [
+    { "source": "/verify", "destination": "/api/verify-lawyer" }
+  ]
+}
+
+✅ FINAL OUTCOME:
+- Working verification form
+- Stylish LegalConnect theme
+- Chatbot FAQ panel
+- Backend simulated with JSON file
+- Deployable on Vercel
+- Embeddable in Wix via iframe
