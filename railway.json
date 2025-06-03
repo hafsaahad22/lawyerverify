@@ -2,6 +2,6 @@
   "build": {
     "root": "client",
     "buildCommand": "npm install && npm run build",
-    "outputDirectory": "dist"
+    "outputDirectory": "dist/public"
   }
 }
